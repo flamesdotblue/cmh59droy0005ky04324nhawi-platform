@@ -1,28 +1,36 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { MDXProvider } from '@mdx-js/react'
+import ContentShell from './components/ContentShell'
+import Sidebar from './components/Sidebar'
+import TopBar from './components/TopBar'
+import { ThemeProvider } from './components/ThemeProvider'
+import { mdxComponents } from './components/MDXComponents'
+import Day1 from './routes/Day1'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
-    </div>
+    <ThemeProvider>
+      <MDXProvider components={mdxComponents}>
+        <BrowserRouter>
+          <div className="min-h-dvh w-full bg-zinc-950 text-zinc-50 dark:bg-zinc-950 dark:text-zinc-50 transition-colors">
+            <ContentShell
+              sidebar={<Sidebar onNavigate={() => setMobileNavOpen(false)} />}
+              topbar={<TopBar onMenuClick={() => setMobileNavOpen((v) => !v)} mobileNavOpen={mobileNavOpen} />}
+              mobileNavOpen={mobileNavOpen}
+              onCloseMobileNav={() => setMobileNavOpen(false)}
+            >
+              <Routes>
+                <Route path="/" element={<Navigate to="/day-1" replace />} />
+                <Route path="/day-1" element={<Day1 />} />
+                <Route path="*" element={<Navigate to="/day-1" replace />} />
+              </Routes>
+            </ContentShell>
+          </div>
+        </BrowserRouter>
+      </MDXProvider>
+    </ThemeProvider>
   )
 }
-
-export default App
