@@ -42,6 +42,4 @@ export const mdxComponents = {
   blockquote: (props) => (
     <blockquote {...props} className="border-l-4 border-yellow-400 pl-4 text-zinc-300 italic mb-4" />
   ),
-  Callout,
-  Highlight,
 }
