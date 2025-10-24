@@ -2,7 +2,7 @@ import { ExternalLink } from 'lucide-react'
 
 export function Callout({ children }) {
   return (
-    <div className="my-6 rounded-lg border-2 border-black bg-yellow-300 p-4 text-black shadow-[4px_4px_0_0_#000]">
+    <div className="my-8 rounded-xl border-2 border-black bg-yellow-300 p-5 text-black shadow-[6px_6px_0_0_#000]">
       {children}
     </div>
   )
@@ -41,5 +41,8 @@ export const mdxComponents = {
   ),
   blockquote: (props) => (
     <blockquote {...props} className="border-l-4 border-yellow-400 pl-4 text-zinc-300 italic mb-4" />
+  ),
+  code: (props) => (
+    <code {...props} className="rounded bg-zinc-900/70 px-1.5 py-0.5 text-[0.85em] text-zinc-200 border border-zinc-800" />
   ),
 }
